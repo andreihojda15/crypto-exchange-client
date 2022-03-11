@@ -14,13 +14,12 @@ export default function App() {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              cra-template-mui
+              crypto-exchange-client
             </Typography>
             <IconButton
               size="large"
               edge="end"
               color="inherit"
-              onClick={() => window.open('https://github.com/tanabee/cra-template-mui', '_blank')}
             >
               <GitHubIcon />
             </IconButton>
