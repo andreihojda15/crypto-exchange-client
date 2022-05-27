@@ -33,8 +33,8 @@ const LoginPage = () => {
                         }
                     }}>
                         <Typography className='loginText' variant='h3'>Login</Typography>
-                        <TextField className='username' id="outlined-basic" label="Username" variant="outlined" />
-                        <TextField className='password' id="outlined-basic" type='password' label="Password" variant="outlined" />
+                        <TextField className='username' size='small' id="outlined-basic" label="Username" variant="outlined" />
+                        <TextField className='password' size='small' id="outlined-basic" type='password' label="Password" variant="outlined" />
                         <Box>
                             <Button
                                 className='button'
@@ -43,6 +43,39 @@ const LoginPage = () => {
                                 type="submit"
                             >
                                 Login
+                            </Button>
+                        </Box>
+                        <Box sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                        }}>
+                            <span className='left' />
+                            <small className='or'>Or</small>
+                            <span className='right' />
+                        </Box>
+                        {/* <Button color='secondary' className='gitButton' variant="contained" type="submit" size='large'>Login with Github</Button> */}
+                        <Box sx={{ py: 2 }}>
+                            <Button
+                                className='gitButton'
+                                color="secondary"
+                                variant="contained"
+                                fullWidth
+                                type="submit"
+                                size="large"
+                            >
+                                Login with Github
+                            </Button>
+                        </Box>
+                        <Box sx={{ py: 1 }}>
+                            <Button
+                                className='googleButton'
+                                color="secondary"
+                                variant="contained"
+                                fullWidth
+                                type="submit"
+                                size="large"
+                            >
+                                Login with Google
                             </Button>
                         </Box>
                     </Box>

@@ -1,9 +1,7 @@
 .loginText {
     text-align: center;
     position: absolute;
-    left: 37.5%;
-    right: 37.71%;
-    top: 30.29%;
+    top: 280px;
     bottom: 74.47%;
     font-weight: 400;
     font-size: 48px;
@@ -20,7 +18,7 @@
 
 .password {
     position: absolute;
-    top: 140px;
+    top: 120px;
     width: 200px;
     height: 40px;
 }
@@ -29,7 +27,41 @@
     width: 199px;
     height: 40px;
     position: absolute;
-    top: 135px;
+    top: 100px;
     background: #3F51B5;
     border-radius: 4px;
+}
+
+.right {
+    position: relative;
+    top: 90px;
+    bottom: 40.11%;
+    background: #E0E0E0;
+    width: 80px;
+    height: 1px;
+}
+
+.left {
+    position: relative;
+    top: 90px;
+    background: #E0E0E0;
+    width: 80px;
+    height: 1px;
+}
+
+.or {
+    position: relative;
+    top: 80px;
+    margin-right: 10px;
+    margin-left: 10px;
+    color: #E0E0E0;
+}
+
+.gitButton {
+    position: absolute;
+    top: 15px;
+}
+
+.title {
+    margin-left: 30px;
 }
