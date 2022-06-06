@@ -9,11 +9,12 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import constants from '../constants/constants'
 
 const LoginPage = () => {
 
     const handleLoginClick = () => {
-        axios.post('http://localhost:1234/auth/login', {
+        axios.post(`${constants.baseURL}/auth/login`, {
             username: formik.values.username,
             password: formik.values.password
         }, { withCredentials: true }).then(response => {
@@ -58,6 +59,8 @@ const LoginPage = () => {
             password: '',
         },
         validationSchema: LoginSchema,
+        onSubmit: (values) => {
+        }
     });
 
     return (
