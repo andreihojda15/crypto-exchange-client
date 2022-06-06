@@ -43,11 +43,11 @@ const LoginPage = () => {
             })
     }
 
-    const LoginSchema = Yup.object().shape({
+    const LoginSchema = Yup.object({
         username: Yup.string()
             .min(2, 'Too short')
             .max(50, 'Too long')
-            .required('Required'),
+            .required('Username is empty'),
         password: Yup.string()
             .min(2, 'Too short')
             .max(50, 'Too long')
@@ -92,22 +92,38 @@ const LoginPage = () => {
                             }}
                         >
                             {({ errors, touched }) => (
-                                <Form className='form'>
-                                    <TextField className='username' size='small' id="outlined-basic" label="Username" variant="outlined" value={username} onChange={(e) => { setUsername(e.target.value) }} />
-                                    <TextField className='password' size='small' id="outlined-basic" type='password' label="Password" variant="outlined" value={password} onChange={(e) => setPassword(e.target.value)} />
-                                    <Box>
-                                        <Button
-                                            className='button'
-                                            color="primary"
-                                            variant="contained"
-                                            type="submit"
-                                            fullWidth
-                                            size='large'
-                                            onClick={handleLoginClick}
-                                        >
-                                            Login
-                                        </Button>
-                                    </Box>
+                                <Form className='form' autoComplete='off'>
+                                    <TextField
+                                        className='username'
+                                        size='small'
+                                        id="outlined-basic"
+                                        name='username'
+                                        label="Username"
+                                        variant="outlined"
+                                        value={username}
+                                        onChange={(e) => { setUsername(e.target.value) }}
+                                    />
+                                    <TextField
+                                        className='password'
+                                        size='small'
+                                        id="outlined-basic"
+                                        type='password'
+                                        name='password'
+                                        label="Password"
+                                        variant="outlined"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)} />
+                                    <Button
+                                        className='button'
+                                        color="primary"
+                                        variant="contained"
+                                        type="submit"
+                                        fullWidth
+                                        size='large'
+                                        onClick={handleLoginClick}
+                                    >
+                                        Login
+                                    </Button>
                                 </Form>
                             )}
                         </Formik>
