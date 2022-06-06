@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './loginPage.css'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -7,17 +7,15 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Formik, Form } from 'formik'
+import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
 const LoginPage = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
 
     const handleLoginClick = () => {
         axios.post('http://localhost:1234/auth/login', {
-            username,
-            password
+            username: formik.values.username,
+            password: formik.values.password
         }, { withCredentials: true }).then(response => {
             console.log(response);
         }).catch(error => {
@@ -54,6 +52,14 @@ const LoginPage = () => {
             .required('Required'),
     })
 
+    const formik = useFormik({
+        initialValues: {
+            username: '',
+            password: '',
+        },
+        validationSchema: LoginSchema,
+    });
+
     return (
         <div>
             <Box sx={{
@@ -80,53 +86,44 @@ const LoginPage = () => {
                         }
                     }}>
                         <Typography className='loginText' variant='h3'>Login</Typography>
-                        <Formik
-                            initialValues={{
-                                username: '',
-                                password: ''
-                            }}
-                            validationSchema={LoginSchema}
-                            onSubmit={values => {
-                                // same shape as initial values
-                                console.log(values);
-                            }}
-                        >
-                            {({ errors, touched }) => (
-                                <Form className='form' autoComplete='off'>
-                                    <TextField
-                                        className='username'
-                                        size='small'
-                                        id="outlined-basic"
-                                        name='username'
-                                        label="Username"
-                                        variant="outlined"
-                                        value={username}
-                                        onChange={(e) => { setUsername(e.target.value) }}
-                                    />
-                                    <TextField
-                                        className='password'
-                                        size='small'
-                                        id="outlined-basic"
-                                        type='password'
-                                        name='password'
-                                        label="Password"
-                                        variant="outlined"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)} />
-                                    <Button
-                                        className='button'
-                                        color="primary"
-                                        variant="contained"
-                                        type="submit"
-                                        fullWidth
-                                        size='large'
-                                        onClick={handleLoginClick}
-                                    >
-                                        Login
-                                    </Button>
-                                </Form>
-                            )}
-                        </Formik>
+                        <form className='form' autoComplete='off' onSubmit={formik.handleSubmit}>
+                            <TextField
+                                className='username'
+                                size='small'
+                                id="outlined-basic"
+                                name='username'
+                                label="Username"
+                                variant="outlined"
+                                value={formik.values.username}
+                                onChange={formik.handleChange}
+                                error={formik.touched.username && Boolean(formik.errors.username)}
+                                helperText={formik.touched.username && formik.errors.username}
+                            />
+                            <TextField
+                                className='password'
+                                size='small'
+                                id="outlined-basic"
+                                type='password'
+                                name='password'
+                                label="Password"
+                                variant="outlined"
+                                value={formik.values.password}
+                                onChange={formik.handleChange}
+                                error={formik.touched.password && Boolean(formik.errors.password)}
+                                helperText={formik.touched.password && formik.errors.password}
+                            />
+                            <Button
+                                className='button'
+                                color="primary"
+                                variant="contained"
+                                type="submit"
+                                fullWidth
+                                size='large'
+                                onClick={handleLoginClick}
+                            >
+                                Login
+                            </Button>
+                        </form>
                         <Box className='boxOr' sx={{
                             display: 'flex',
                             justifyContent: 'center',
@@ -135,7 +132,6 @@ const LoginPage = () => {
                             <small className='or'>Or</small>
                             <span className='right' />
                         </Box>
-                        {/* <Button color='secondary' className='gitButton' variant="contained" type="submit" size='large'>Login with Github</Button> */}
                         <Box sx={{
                             display: 'flex',
                             flexDirection: 'column',
@@ -168,8 +164,8 @@ const LoginPage = () => {
                         <Typography variant='h7' className='register'>Don't Have An Account? Register <Link to='/register' className='link'>Here</Link></Typography>
                     </Box>
                 </Paper>
-            </Box>
-        </div>
+            </Box >
+        </div >
     )
 }
 
