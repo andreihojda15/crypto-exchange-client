@@ -3,6 +3,7 @@ import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
+import './navbar.css'
 
 const Navbar = () => {
     return (
@@ -15,7 +16,7 @@ const Navbar = () => {
                     <Typography variant="h6" sx={{ flexGrow: 1 }}>
                         Crypto Exchange
                     </Typography>
-                    <Typography variant='subtitle1'>
+                    <Typography variant='subtitle2' className='undertext'>
                         by <b>Cognizant</b> Soft<b>vision</b>
                     </Typography>
                 </Box>
