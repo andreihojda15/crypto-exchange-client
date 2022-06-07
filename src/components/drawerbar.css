@@ -1,0 +1,19 @@
+.picture {
+    position: absolute;
+    left: 140px;
+    top: 50px;
+}
+
+.list {
+    position: relative;
+    top: 100px;
+    left: 50px;
+    width: fit-content;
+}
+
+.logoutButton {
+    position: relative;
+    top: 200px;
+    left: 50px;
+    width: 269px;
+}
