@@ -8,6 +8,29 @@ import image1 from '../imgs/image1.png'
 import MovingIcon from '@mui/icons-material/Moving';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import TimelineIcon from '@mui/icons-material/Timeline';
+import {
+    DataGrid,
+    gridPageCountSelector,
+    gridPageSelector,
+    useGridApiContext,
+    useGridSelector,
+  } from '@mui/x-data-grid';
+  import Pagination from '@mui/material/Pagination';
+
+  function CustomPagination() {
+    const apiRef = useGridApiContext();
+    const page = useGridSelector(apiRef, gridPageSelector);
+    const pageCount = useGridSelector(apiRef, gridPageCountSelector);
+  
+    return (
+      <Pagination
+        color="primary"
+        count={pageCount}
+        page={page + 1}
+        onChange={(event, value) => apiRef.current.setPage(value - 1)}
+      />
+    );
+  }
 
 const MainPage = () => {
     const logout = () => {
