@@ -28,13 +28,14 @@ export const DrawerBar = () => {
                                     'date'
                                     'list'
                                     'logout'`,
-                gridTemplateRows: '100px 50px 20px 300px auto',
+                gridTemplateRows: '120px 50px 20px 300px auto',
                 justifyItems: 'center',
             }}>
                 <Avatar
                     alt='user profile picture'
                     src={image1}
                     sx={{
+                        marginTop: 2,
                         width: 100,
                         height: 100,
                         gridArea: 'avatar',
@@ -42,6 +43,7 @@ export const DrawerBar = () => {
                 />
                 <Typography variant='h4' sx={{
                     gridArea: 'name',
+                    fontSize: 34,
                 }}>John Doe</Typography>
                 <Typography
                     sx={{
