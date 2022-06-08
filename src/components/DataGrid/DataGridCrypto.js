@@ -68,16 +68,6 @@ export const DataGridCrypto = ({ url }) => {
             })
     }, [url])
 
-    // useEffect(() => {
-    //     axios.get(`${constants.baseURL}/crypto-sell`)
-    //         .then((res) => {
-    //             console.log(res.data.availableCrypto)
-    //             setTableData(res.data.availableCrypto)
-    //         }).catch((err) => {
-    //             console.log(err);
-    //         })
-    // }, [isBuy])
-
     return (
         <>
             <DataGrid
