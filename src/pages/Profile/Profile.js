@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import './profile.css'
@@ -19,6 +19,20 @@ const Profile = () => {
     const [newPassword, setNewPassword] = useState('')
     const [confirmNewPass, setConfirmNewPass] = useState('')
     const [valid, setValid] = useState(false)
+    const [file, setFile] = useState(null)
+    const [image, setImage] = useState(null)
+
+    useEffect(() => {
+        axios.get('http://localhost:1234/profile/avatar', { withCredentials: true, 
+        headers: {
+            'Content-Type': 'image/jpeg'
+        },
+        responseType: 'blob'
+    })
+        .then(response =>{
+            setImage(URL.createObjectURL(response.data))
+        })
+    }, [file])
 
     const handleSubmit = () =>{
         if( valid === false) return toast.error('Wrong input. Passwords must match')
@@ -40,6 +54,31 @@ const Profile = () => {
             toast.error(error.response.data.msg)
             console.log(error)
         })
+    }
+
+    const onFileChange = event => {
+        setFile(event.target.files[0]) 
+    }
+
+    const handleFileSubmit = () => {
+        if(file === null) return toast.error('Please upload a file')
+
+        const formData = new FormData()
+        formData.append('file', file)
+
+        axios.put('http://localhost:1234/profile/avatar', formData,
+            { withCredentials: true, headers: {
+                "Content-type": "multipart/form-data"
+            }})
+            .then(response => {
+                toast.success(response.data.msg)
+                setFile(null)
+                console.log(response)
+            })
+            .catch(error => {
+                toast.error(error.response.data.msg)
+                console.log(error)
+            })
     }
 
     const schema = Yup.object({
@@ -114,11 +153,21 @@ const Profile = () => {
                                 <img className="flexRight"
                                     src={registerPhoto}
                                     alt="Register Logo">
-                                </img>
-                                
+                                </img>  
                             </div>
                         )
-                        : null
+                        : 
+                        <div>
+                            <form className='inputFile' encType="multipart/form">
+                                <input type="file" name='file' onChange={onFileChange} />
+                            </form>
+                            <div className='submitButton'>
+                                <Button variant="contained" onClick={handleFileSubmit} size='small'> Submit </Button>
+                            </div>
+                            <div className="imageContainer">
+                                <img src={image} alt="Profile" className='profile-image'></img>
+                            </div>
+                        </div>
                     }
                 </Paper>
             </Box>
