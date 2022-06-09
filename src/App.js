@@ -4,6 +4,7 @@ import Navbar from './components/Navbar/Navbar'
 import { Route, Routes } from 'react-router-dom'
 import Register from './pages/Register/Register'
 import MainPage from 'pages/Main/MainPage'
+import { Transaction } from 'pages/Transaction/Transaction'
 
 export default function App() {
 
@@ -12,7 +13,12 @@ export default function App() {
       <Box sx={{ flexGrow: 1 }} style={{ height: '100%', width: '100%' }}>
         <Navbar />
         <Routes>
-          {localStorage.getItem('username') ? <Route path='/main' element={<MainPage />} /> : null}
+          {localStorage.getItem('username') ?
+            <>
+              <Route path='/main' element={<MainPage />} />
+              <Route path='/transaction' element={<Transaction />} />
+            </>
+            : null}
           <Route index element={<LoginPage />} />
           <Route path='/register' element={<Register />} />
         </Routes>
