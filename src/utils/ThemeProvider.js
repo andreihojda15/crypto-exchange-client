@@ -5,10 +5,10 @@ import { createTheme, ThemeProvider as MuiThemeProvider } from '@mui/material/st
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#3F51B5'
+      main: '#3F51B5',
     },
     secondary: {
-      main: '#F50057'
+      main: '#F50057',
     },
     text: {
       primary: grey[900],

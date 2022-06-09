@@ -1,0 +1,28 @@
+.mainWrapper{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+} 
+.columnsWrapper{
+    display: flex;
+    width: 90%;
+    margin-top: 4%;
+}
+.flexLeft{
+    margin-top: 5%;
+    margin-left: 5%;
+    width: 35%;
+}
+.flexRight{
+    width: 65%;
+    margin-left: 7.5%; 
+} 
+.MuiOutlinedInput-root{
+    margin-bottom: 1em;
+}
+.registerText{
+    margin-bottom: 2em;
+}
+.registerButton{
+    margin-top: 1em;
+}
