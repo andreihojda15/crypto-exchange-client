@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import constants from '../constants/constants'
+import constants from '../../constants/constants'
 
 const LoginPage = () => {
 
