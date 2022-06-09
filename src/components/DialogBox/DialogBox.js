@@ -1,33 +1,85 @@
-import * as React from 'react'
+import React, { useEffect } from 'react'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import TextField from '@mui/material/TextField'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
 import './DialogBox.css'
-import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import axios from 'axios'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function DialogBox(props) {
   const [open, setOpen] = React.useState(false)
+  const [amount, setAmount] = React.useState('')
+  const [receivedAmount, setReceivedAmount] = React.useState('')
+  const [baseCurrencyName, setBaseCurrencyName] = React.useState('Bitcoin')
+  const [exchangeCurrencyName, setExchangeCurrencyName] = React.useState('Ethereum')
+  const [valid, setValid] = React.useState(false)
+
+  useEffect(() => {
+    if (props.title === 'Sell') setExchangeCurrencyName('xUSD')
+  })
+
+  const schema = Yup.object({
+    amount: Yup.number().required().positive().moreThan(0),
+  })
+
+  schema
+    .isValid({
+      amount,
+    })
+    .then(valid => {
+      setValid(valid)
+    })
 
   const handleConfirm = () => {
-    axios
-      .put(
-        'http://localhost:1234/funds',
-        {
-          amount: Number(formik.values.amount),
-        },
-        { withCredentials: true }
-      )
-      .then(response => {
-        console.log(response)
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    if (valid === false) return toast.error('Wrong input')
+
+    if (props.title === 'Deposit Funds')
+      axios
+        .put(
+          'http://localhost:1234/funds',
+          {
+            amount: Number(amount),
+          },
+          { withCredentials: true }
+        )
+        .then(response => {
+          toast.success(response.data.message)
+          handleClose()
+          console.log(response)
+        })
+        .catch(error => {
+          toast.error(error.response.data.message)
+          console.log(error)
+        })
+    else
+      axios
+        .post(
+          'http://localhost:1234/transaction',
+          {
+            amount: Number(amount),
+            baseCurrencyName,
+            exchangeCurrencyName,
+          },
+          { withCredentials: true }
+        )
+        .then(response => {
+          toast.success(response.data.message)
+          handleClose()
+          console.log(response)
+        })
+        .catch(error => {
+          toast.error(error.response.data.message)
+          console.log(error)
+        })
   }
 
   const handleClickOpen = () => {
@@ -36,22 +88,13 @@ export default function DialogBox(props) {
 
   const handleClose = () => {
     setOpen(false)
-    formik.setFieldValue('amount', 30)
+    setAmount('')
+    setReceivedAmount('')
   }
-
-  const depositFundsSchema = Yup.object({
-    amount: Yup.number().required().positive().integer().min(30),
-  })
-
-  const formik = useFormik({
-    initialValues: {
-      amount: 30,
-    },
-    validationSchema: depositFundsSchema,
-  })
 
   return (
     <div className="dialog">
+      <ToastContainer />
       <Button variant="outlined" onClick={handleClickOpen}>
         {props.title}
       </Button>
@@ -65,40 +108,135 @@ export default function DialogBox(props) {
         <hr></hr>
         <DialogContent>
           {props.title === 'Buy' ? (
-            <div>Buy</div>
+            <div>
+              <div className="container">
+                <div className="textField amountBox">
+                  <TextField
+                    variant="outlined"
+                    label="I want to spend"
+                    fullWidth
+                    size="medium"
+                    name="amount"
+                    value={amount}
+                    onChange={event => {
+                      setAmount(event.target.value)
+                      setReceivedAmount(event.target.value * Math.random() * 100)
+                    }}
+                  />
+                </div>
+                <div className="textField currencyBox">
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Currency</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="baseCurrencyName"
+                      value={baseCurrencyName}
+                      label="Currency"
+                      onChange={event => {
+                        setBaseCurrencyName(event.target.value)
+                      }}
+                    >
+                      <MenuItem value={'xUSD'}>xUSD</MenuItem>
+                      <MenuItem value={'Ethereum'}>Ethereum</MenuItem>
+                      <MenuItem value={'Tether'}>Tether</MenuItem>
+                      <MenuItem value={'Bitcoin'}>Bitcoin</MenuItem>
+                      <MenuItem value={'BNB'}>BNB</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+              </div>
+              <div className="container">
+                <div className="textField amountBox">
+                  <TextField
+                    variant="outlined"
+                    label="I want to buy"
+                    fullWidth
+                    size="medium"
+                    name="receivedAmount"
+                    value={receivedAmount}
+                    onChange={event => {
+                      setReceivedAmount(event.target.value)
+                      setAmount(event.target.value * Math.random() * 100)
+                    }}
+                  />
+                </div>
+                <div className="textField currencyBox">
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Currency</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="exchangeCurrencyName"
+                      value={exchangeCurrencyName}
+                      label="Currency"
+                      onChange={event => {
+                        setExchangeCurrencyName(event.target.value)
+                      }}
+                    >
+                      <MenuItem value={'xUSD'}>xUSD</MenuItem>
+                      <MenuItem value={'Ethereum'}>Ethereum</MenuItem>
+                      <MenuItem value={'Tether'}>Tether</MenuItem>
+                      <MenuItem value={'Bitcoin'}>Bitcoin</MenuItem>
+                      <MenuItem value={'BNB'}>BNB</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+              </div>
+            </div>
           ) : props.title === 'Sell' ? (
             <div>
-              <div className="textFieldDeposit">
-                <TextField
-                  variant="outlined"
-                  label="Amount"
-                  fullWidth
-                  size="medium"
-                  placeholder="xUSD"
-                  name="amount"
-                  value={formik.values.amount}
-                  onChange={formik.handleChange}
-                  error={formik.values.amount && formik.errors.amount}
-                  helperText={formik.values.amount && formik.errors.amount}
-                />
+              <div className="container">
+                <div className="textField amountBox">
+                  <TextField
+                    variant="outlined"
+                    label="I want to sell"
+                    fullWidth
+                    size="medium"
+                    name="amount"
+                    value={amount}
+                    onChange={event => {
+                      setAmount(event.target.value)
+                      setReceivedAmount(event.target.value * Math.random() * 900)
+                    }}
+                  />
+                </div>
+                <div className="textField currencyBox">
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Currency</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="baseCurrencyName"
+                      value={baseCurrencyName}
+                      label="Currency"
+                      onChange={event => {
+                        setBaseCurrencyName(event.target.value)
+                      }}
+                    >
+                      <MenuItem value={'Bitcoin'}>Bitcoin</MenuItem>
+                      <MenuItem value={'Ethereum'}>Ethereum</MenuItem>
+                      <MenuItem value={'Tether'}>Tether</MenuItem>
+                      <MenuItem value={'BNB'}>Tether</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
               </div>
-              <div className="textFieldDeposit">
+              <div className="textField">
                 <TextField
+                  disabled
                   variant="outlined"
-                  label="Amount"
+                  label="You will receive"
                   fullWidth
                   size="medium"
                   placeholder="xUSD"
-                  name="amount"
-                  value={formik.values.amount}
-                  onChange={formik.handleChange}
-                  error={formik.values.amount && formik.errors.amount}
-                  helperText={formik.values.amount && formik.errors.amount}
+                  name="receivedAmount"
+                  value={receivedAmount + ' xUSD'}
                 />
               </div>
             </div>
           ) : props.title === 'Deposit Funds' ? (
-            <div className="textFieldDeposit">
+            <div className="textField">
               <TextField
                 variant="outlined"
                 label="Amount"
@@ -106,24 +244,17 @@ export default function DialogBox(props) {
                 size="medium"
                 placeholder="xUSD"
                 name="amount"
-                value={formik.values.amount}
-                onChange={formik.handleChange}
-                error={formik.values.amount && formik.errors.amount}
-                helperText={formik.values.amount && formik.errors.amount}
+                value={amount}
+                onChange={event => {
+                  setAmount(event.target.value)
+                }}
               />
             </div>
           ) : null}
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={() => {
-              handleConfirm()
-              handleClose()
-            }}
-          >
-            Confirm
-          </Button>
           <Button onClick={handleClose}>Close</Button>
+          <Button onClick={handleConfirm}>Confirm</Button>
         </DialogActions>
       </Dialog>
     </div>

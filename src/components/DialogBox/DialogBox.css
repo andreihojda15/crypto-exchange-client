@@ -1,14 +1,24 @@
-.textFieldDeposit{
-    margin-top: 5%;
+.textField {
+  margin-top: 5%;
 }
 hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 0;
-    padding: 0;
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 0;
+  padding: 0;
 }
-.MuiPaper-root{
-    width: 40%;
+.MuiPaper-root {
+  width: 40%;
+}
+.container {
+  display: flex;
+}
+.currencyBox {
+  width: 30%;
+  margin-left: 1em;
+}
+.amountBox {
+  width: 70%;
 }
