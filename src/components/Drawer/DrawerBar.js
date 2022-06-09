@@ -39,7 +39,7 @@ export const DrawerBar = () => {
                                     'date'
                                     'list'
                                     'logout'`,
-                gridTemplateRows: '120px 50px 20px 300px auto',
+                gridTemplateRows: '120px 30px 20px 300px auto',
                 justifyItems: 'center',
             }}>
                 <Avatar
@@ -54,12 +54,12 @@ export const DrawerBar = () => {
                 />
                 <Typography variant='h4' sx={{
                     gridArea: 'name',
-                    fontSize: 34,
+                    fontSize: 20,
                 }}>{localStorage.getItem('displayName')}</Typography>
                 <Typography
                     sx={{
                         gridArea: 'date',
-                        fontSize: 12,
+                        fontSize: 14,
                         color: 'rgba(0, 0, 0, 0.38)',
                     }}>Joined {localStorage.getItem('createdAt').substring(8, 10)}/{localStorage.getItem('createdAt').substring(5, 7)}/{localStorage.getItem('createdAt').substring(0, 4)}</Typography>
                 <List sx={{
