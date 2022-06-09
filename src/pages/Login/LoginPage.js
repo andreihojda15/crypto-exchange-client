@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './loginPage.css'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -10,8 +10,15 @@ import axios from 'axios';
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import constants from '../../constants/constants'
+import Alert from '@mui/material/Alert';
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import Collapse from '@mui/material/Collapse';
+
 
 const LoginPage = () => {
+    const [error, setError] = useState(false)
+    const [closed, setClosed] = React.useState(false);
 
     const handleLoginClick = () => {
         axios.post(`${constants.baseURL}/auth/login`, {
@@ -25,6 +32,8 @@ const LoginPage = () => {
                 window.location = '/main';
             }
         }).catch(error => {
+            setError(true)
+            setClosed(false)
             console.log(error);
         })
     }
@@ -67,6 +76,8 @@ const LoginPage = () => {
         }
     });
 
+
+
     return (
         <Box sx={{
             display: 'flex',
@@ -91,6 +102,29 @@ const LoginPage = () => {
                         // height: 30
                     }
                 }}>
+                    {error ?
+                        // <Alert severity="error">Login failed</Alert>
+                        <Collapse in={!closed}>
+                            <Alert severity='error' variant='filled'
+                                action={
+                                    <IconButton
+                                        aria-label="close"
+                                        color="inherit"
+                                        size="small"
+                                        onClick={() => {
+                                            setClosed(true);
+                                        }}
+                                    >
+                                        <CloseIcon fontSize="inherit" />
+                                    </IconButton>
+                                }
+                                sx={{ mb: 2 }}
+                            >
+                                Login failed!
+                            </Alert>
+                        </Collapse>
+                        : null
+                    }
                     <Typography className='loginText' variant='h3'>Login</Typography>
                     <form className='form' autoComplete='off' onSubmit={formik.handleSubmit}>
                         <TextField
