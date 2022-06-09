@@ -117,6 +117,7 @@ const Register = () => {
 							variant="outlined"
 							value={formik.values.password}
 							onChange={formik.handleChange}
+							type="password"
 							error={
 								formik.values.password && formik.errors.password
 							}
@@ -131,6 +132,7 @@ const Register = () => {
 							variant="outlined"
 							value={formik.values.confirmPassword}
 							onChange={formik.handleChange}
+							type="password"
 							error={
 								formik.values.confirmPassword &&
 								formik.errors.confirmPassword
