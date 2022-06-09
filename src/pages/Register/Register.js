@@ -25,7 +25,7 @@ const Register = () => {
 			.then((response) => {
 				console.log(response)
 				if(response.status === 200){
-					window.location = '/login'
+					window.location = '/'
 				}
 			})
 			.catch((error) => {
