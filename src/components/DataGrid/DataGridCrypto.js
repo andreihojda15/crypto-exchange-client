@@ -59,8 +59,9 @@ export const DataGridCrypto = ({ url }) => {
     const [tableSell, setTableSell] = useState([])
 
     useEffect(() => {
-        axios.get(`${constants.baseURL}/${url}`)
+        axios.get(`${constants.baseURL}/${url}`, { withCredentials: true })
             .then((res) => {
+                console.log(localStorage.getItem('createdAt'));
                 console.log(res.data)
                 url === 'crypto' ? setTableBuy(res.data.toBuy) : setTableSell(res.data.toSell)
             }).catch((err) => {
@@ -84,6 +85,7 @@ export const DataGridCrypto = ({ url }) => {
                     gridArea: 'datagrid',
                     marginTop: 5,
                     height: '65%',
+                    marginLeft: 5,
                 }}
             />
         </>

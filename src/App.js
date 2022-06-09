@@ -3,18 +3,18 @@ import LoginPage from './pages/Login/LoginPage'
 import Navbar from './components/Navbar/Navbar'
 import { Route, Routes } from 'react-router-dom'
 import Register from './pages/Register/Register'
-import MainPage from 'pages/MainPage'
+import MainPage from 'pages/Main/MainPage'
 
 export default function App() {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1}} style={{ height: '100%', width: '100%'}}>
+      <Box sx={{ flexGrow: 1 }} style={{ height: '100%', width: '100%' }}>
         <Navbar />
         <Routes>
+          {localStorage.getItem('username') ? <Route path='/main' element={<MainPage />} /> : null}
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/main' element={<MainPage />} />
         </Routes>
       </Box>
     </>
