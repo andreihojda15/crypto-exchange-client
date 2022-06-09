@@ -24,9 +24,11 @@ export const DrawerBar = () => {
     return (
         <Drawer variant="permanent"
             sx={{
+                gridArea: 'drawer',
                 '& .MuiDrawer-paper': {
                     position: 'relative',
                 },
+                marginTop: 5,
             }}
             open
         >
@@ -59,7 +61,7 @@ export const DrawerBar = () => {
                         gridArea: 'date',
                         fontSize: 12,
                         color: 'rgba(0, 0, 0, 0.38)',
-                    }}>Joined {localStorage.getItem('createdAt').substring(8,10)}/{localStorage.getItem('createdAt').substring(5,7)}/{localStorage.getItem('createdAt').substring(0,4)}</Typography>
+                    }}>Joined {localStorage.getItem('createdAt').substring(8, 10)}/{localStorage.getItem('createdAt').substring(5, 7)}/{localStorage.getItem('createdAt').substring(0, 4)}</Typography>
                 <List sx={{
                     gridArea: 'list',
                 }}>
@@ -88,24 +90,22 @@ export const DrawerBar = () => {
                         </ListItemButton>
                     </ListItem>
                 </List>
-                <Link to='/login' sx={{
-                    marginTop: 10,
-                }}>
-                    <Button
-                        type='button'
-                        variant='contained'
-                        size='large'
-                        onClick={logout}
-                        sx={{
-                            width: 220,
-                            gridArea: 'logout',
-                            marginTop: 10,
-                        }}
-                    >
+                <Button
+                    type='button'
+                    variant='contained'
+                    size='large'
+                    onClick={logout}
+                    sx={{
+                        width: 220,
+                        gridArea: 'logout',
+                        marginTop: 18,
+                    }}
+                >
+                    <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
                         Log out
-                    </Button>
-                </Link>
+                    </Link>
+                </Button>
             </Box>
-        </Drawer>
+        </Drawer >
     )
 }

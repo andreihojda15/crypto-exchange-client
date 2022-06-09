@@ -34,12 +34,7 @@ const MainPage = () => {
                         justifyContent: 'center',
                     }}
                 >
-                    <Box sx={{
-                        gridArea: 'drawer',
-                        marginTop: 3,
-                    }}>
-                        <DrawerBar />
-                    </Box>
+                    <DrawerBar />
                     <Tabs
                         value={value}
                         onChange={handleChange}

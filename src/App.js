@@ -13,7 +13,7 @@ export default function App() {
         <Navbar />
         <Routes>
           {localStorage.getItem('username') ? <Route path='/main' element={<MainPage />} /> : null}
-          <Route path='/login' element={<LoginPage />} />
+          <Route index element={<LoginPage />} />
           <Route path='/register' element={<Register />} />
         </Routes>
       </Box>
