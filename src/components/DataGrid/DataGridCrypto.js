@@ -7,7 +7,6 @@ import {
     useGridSelector,
 } from '@mui/x-data-grid';
 import Pagination from '@mui/material/Pagination';
-import { Button } from '@mui/material';
 import axios from 'axios';
 import constants from '../../constants/constants'
 
@@ -40,21 +39,21 @@ export const DataGridCrypto = ({ columns, actionColumn, url }) => {
                 if (url === 'crypto-sell') {
                     setTableSell(res.data.toSell)
                 }
-                if(url === 'transaction-history') {
+                if (url === 'transaction-history') {
                     console.log(res.data);
                     setTableTransaction(res.data.response)
                 }
-                // url === 'crypto' ? setTableBuy(res.data.toBuy) : setTableSell(res.data.toSell)
             }).catch((err) => {
                 console.log(err);
             })
     }, [url])
+    console.log(tableTransaction);
 
     return (
         <>
             <DataGrid
                 rows={url === 'crypto' ? tableBuy : (url === 'crypto-sell') ? tableSell : tableTransaction}
-                columns={columns.concat(actionColumn)}
+                columns={url === 'transaction-history' ? columns : columns.concat(actionColumn)}
                 pagination
                 getRowId={(row) => row._id}
                 pageSize={5}

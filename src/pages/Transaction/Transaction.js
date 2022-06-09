@@ -1,64 +1,57 @@
-import { Button, Paper } from '@mui/material'
+import { Box, Paper } from '@mui/material'
 import { DataGridCrypto } from 'components/DataGrid/DataGridCrypto'
 import { DrawerBar } from 'components/Drawer/DrawerBar'
 import React from 'react'
 
 const columnsTransaction = [
-    { field: '_id', hide: true },
-    { field: 'name', headerName: 'Name', width: 200 },
+    { field: '_id', hide: true, },
     {
-        field: 'soldAmount',
+        field: 'sold',
         headerName: 'Sold',
         width: 180,
     },
     {
-        field: 'boughAmount',
+        field: 'bought',
         headerName: 'Bought',
-        width: 250,
+        width: 150,
     },
     {
         field: 'cryptoInWallet',
         headerName: 'Crypto in Wallet',
-        width: 250,
+        width: 200,
     },
     {
         field: 'currencyInWallet',
         headerName: 'Currency in Wallet',
-        width: 250,
+        width: 150,
     },
     {
         field: 'transactionDate',
         headerName: 'Date',
-        width: 250,
-    },
-];
-
-const actionColumnBuy = [
-    {
-        field: "action",
-        headerName: "Action",
-        width: 120,
-        renderCell: (params) => {
-            return (
-                <Button variant='contained'>Buy</Button>
-            );
-        },
+        width: 200,
     },
 ];
 
 export const Transaction = () => {
     return (
-        <Paper
-            elevation={8}
-            sx={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 5fr',
-                gridTemplateAreas: `'drawer datagrid'`,
-                paddingBottom: 3,
-            }}
-        >
-            <DrawerBar />
-            <DataGridCrypto columns={columnsTransaction} actionColumn={actionColumnBuy} url={'transaction-history'} />
-        </Paper>
+        <Box sx={{
+            marginTop: 10,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+        }}>
+            <Paper
+                elevation={8}
+                sx={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 4fr',
+                    gridTemplateAreas: `'drawer datagrid'`,
+                    paddingBottom: 3,
+                }}
+            >
+                <DrawerBar />
+                <DataGridCrypto columns={columnsTransaction} url={'transaction-history'} />
+            </Paper>
+        </Box>
     )
 }
