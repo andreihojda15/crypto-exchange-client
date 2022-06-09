@@ -18,12 +18,16 @@ const LoginPage = () => {
             username: formik.values.username,
             password: formik.values.password
         }, { withCredentials: true }).then(response => {
-            console.log(response);
+            localStorage.setItem('username', response.data.username)
+            localStorage.setItem('displayName', response.data.displayName)
+            localStorage.setItem('createdAt', response.data.createdAt)
+            if (response.status === 200) {
+                window.location = '/main';
+            }
         }).catch(error => {
             console.log(error);
         })
     }
-
     const handleGithubLogin = () => {
         axios.get(`${constants.baseURL}/auth/github`, { withCredentials: true })
             .then((res) => {
@@ -44,7 +48,7 @@ const LoginPage = () => {
 
     const LoginSchema = Yup.object({
         username: Yup.string()
-            .min(2, 'Too short')
+            .min(3, 'Too short')
             .max(50, 'Too long')
             .required('Username is empty'),
         password: Yup.string()
@@ -64,111 +68,123 @@ const LoginPage = () => {
     });
 
     return (
-        <div>
-            <Box sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                '& > :not(style)': {
-                    m: 15,
-                    width: 480,
-                    height: 586,
-                },
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
-                <Paper elevation={8}>
+        <Box sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            '& > :not(style)': {
+                m: 15,
+                width: '25%',
+                height: '65vh',
+            },
+            justifyContent: 'center',
+            alignItems: 'center',
+        }}>
+            <Paper elevation={8}>
+                <Box sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    // gap: '50px',
+                    marginY: '50px',
+                    '& > :not(style)': {
+                        // height: 30
+                    }
+                }}>
+                    <Typography className='loginText' variant='h3'>Login</Typography>
+                    <form className='form' autoComplete='off' onSubmit={formik.handleSubmit}>
+                        <TextField
+                            className='username'
+                            size='small'
+                            name='username'
+                            label="Username"
+                            variant="outlined"
+                            value={formik.values.username}
+                            onChange={formik.handleChange}
+                            error={formik.values.username && Boolean(formik.errors.username)}
+                            helperText={formik.values.username && formik.errors.username}
+                            sx={{
+                                marginTop: 2,
+                            }}
+                        />
+                        <TextField
+                            className='password'
+                            size='small'
+                            type='password'
+                            name='password'
+                            label="Password"
+                            variant="outlined"
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
+                            error={formik.values.password && Boolean(formik.errors.password)}
+                            helperText={formik.values.password && formik.errors.password}
+                            sx={{
+                                marginTop: 1,
+                            }}
+                        />
+                        <Button
+                            className='button'
+                            color="primary"
+                            variant="contained"
+                            type="submit"
+                            fullWidth
+                            size='large'
+                            onClick={handleLoginClick}
+                            sx={{
+                                marginTop: 1,
+                            }}
+                        >
+                            Login
+                        </Button>
+                    </form>
                     <Box sx={{
                         display: 'flex',
                         justifyContent: 'center',
-                        alignItems: 'center',
-                        flexDirection: 'column',
-                        gap: '50px',
-                        marginY: '10px',
-                        '& > :not(style)': {
-                            height: 30
-                        }
+                        marginTop: 3,
                     }}>
-                        <Typography className='loginText' variant='h3'>Login</Typography>
-                        <form className='form' autoComplete='off' onSubmit={formik.handleSubmit}>
-                            <TextField
-                                className='username'
-                                size='small'
-                                id="outlined-basic"
-                                name='username'
-                                label="Username"
-                                variant="outlined"
-                                value={formik.values.username}
-                                onChange={formik.handleChange}
-                                error={formik.touched.username && Boolean(formik.errors.username)}
-                                helperText={formik.touched.username && formik.errors.username}
-                            />
-                            <TextField
-                                className='password'
-                                size='small'
-                                id="outlined-basic"
-                                type='password'
-                                name='password'
-                                label="Password"
-                                variant="outlined"
-                                value={formik.values.password}
-                                onChange={formik.handleChange}
-                                error={formik.touched.password && Boolean(formik.errors.password)}
-                                helperText={formik.touched.password && formik.errors.password}
-                            />
-                            <Button
-                                className='button'
-                                color="primary"
-                                variant="contained"
-                                type="submit"
-                                fullWidth
-                                size='large'
-                                onClick={handleLoginClick}
-                            >
-                                Login
-                            </Button>
-                        </form>
-                        <Box className='boxOr' sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                        }}>
-                            <span className='left' />
-                            <small className='or'>Or</small>
-                            <span className='right' />
-                        </Box>
-                        <Box sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            py: 2
-                        }}>
-                            <Button
-                                className='gitButton'
-                                color="secondary"
-                                fullWidth
-                                size='large'
-                                variant="contained"
-                                type="submit"
-                                onClick={handleGithubLogin}
-                            >
-                                Login with Github
-                            </Button>
-
-                            <Button
-                                className='googleButton'
-                                color="secondary"
-                                fullWidth
-                                size='large'
-                                variant="contained"
-                                type="submit"
-                                onClick={handleGoogleLogin}
-                            >
-                                Login with Google
-                            </Button>
-                        </Box>
-                        <Typography variant='h7' className='register'>Don't Have An Account? Register <Link to='/register' className='link'>Here</Link></Typography>
+                        <span className='left' />
+                        <small className='or'>Or</small>
+                        <span className='right' />
                     </Box>
-                </Paper>
-            </Box >
-        </div >
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        py: 2
+                    }}>
+                        <Button
+                            className='gitButton'
+                            color="secondary"
+                            fullWidth
+                            size='large'
+                            variant="contained"
+                            type="submit"
+                            onClick={handleGithubLogin}
+                            sx={{
+                                marginTop: 1,
+                            }}
+                        >
+                            Login with Github
+                        </Button>
+
+                        <Button
+                            className='googleButton'
+                            color="secondary"
+                            fullWidth
+                            size='large'
+                            variant="contained"
+                            type="submit"
+                            onClick={handleGoogleLogin}
+                            sx={{
+                                marginTop: 2,
+                            }}
+                        >
+                            Login with Google
+                        </Button>
+                    </Box>
+                    <Typography variant='h7'>Don't Have An Account? Register <Link to='/register' className='link'>Here</Link></Typography>
+                </Box>
+            </Paper>
+        </Box >
     )
 }
 

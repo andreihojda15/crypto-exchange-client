@@ -1,15 +1,24 @@
 import React from 'react'
 import { Button, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
-import image1 from '../imgs/image1.png'
+import image1 from '../../imgs/image1.png'
 import MovingIcon from '@mui/icons-material/Moving';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import TimelineIcon from '@mui/icons-material/Timeline';
 import { Box } from '@mui/system';
+import { Link } from 'react-router-dom';
+import axios from 'axios'
+import constants from 'constants/constants';
 
 export const DrawerBar = () => {
     const logout = () => {
-        // do a logout
+        localStorage.clear()
+        axios.get(`${constants.baseURL}/logout`, { withCredentials: true })
+            .then((response) => {
+                console.log(response);
+            }).catch((error) => {
+                console.log(error);
+            })
     }
 
     return (
@@ -44,13 +53,13 @@ export const DrawerBar = () => {
                 <Typography variant='h4' sx={{
                     gridArea: 'name',
                     fontSize: 34,
-                }}>John Doe</Typography>
+                }}>{localStorage.getItem('displayName')}</Typography>
                 <Typography
                     sx={{
                         gridArea: 'date',
                         fontSize: 12,
                         color: 'rgba(0, 0, 0, 0.38)',
-                    }}>Joined 10/06/2022</Typography>
+                    }}>Joined {localStorage.getItem('createdAt').substring(8,10)}/{localStorage.getItem('createdAt').substring(5,7)}/{localStorage.getItem('createdAt').substring(0,4)}</Typography>
                 <List sx={{
                     gridArea: 'list',
                 }}>
@@ -79,19 +88,23 @@ export const DrawerBar = () => {
                         </ListItemButton>
                     </ListItem>
                 </List>
-                <Button
-                    type='button'
-                    variant='contained'
-                    size='large'
-                    onClick={logout}
-                    sx={{
-                        width: 220,
-                        marginY: 5,
-                        gridArea: 'logout',
-                    }}
-                >
-                    Log out
-                </Button>
+                <Link to='/login' sx={{
+                    marginTop: 10,
+                }}>
+                    <Button
+                        type='button'
+                        variant='contained'
+                        size='large'
+                        onClick={logout}
+                        sx={{
+                            width: 220,
+                            gridArea: 'logout',
+                            marginTop: 10,
+                        }}
+                    >
+                        Log out
+                    </Button>
+                </Link>
             </Box>
         </Drawer>
     )
