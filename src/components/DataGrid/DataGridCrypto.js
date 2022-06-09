@@ -61,8 +61,6 @@ export const DataGridCrypto = ({ url }) => {
     useEffect(() => {
         axios.get(`${constants.baseURL}/${url}`, { withCredentials: true })
             .then((res) => {
-                console.log(localStorage.getItem('createdAt'));
-                console.log(res.data)
                 url === 'crypto' ? setTableBuy(res.data.toBuy) : setTableSell(res.data.toSell)
             }).catch((err) => {
                 console.log(err);

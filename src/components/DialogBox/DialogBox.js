@@ -25,7 +25,7 @@ export default function DialogBox(props) {
 
   useEffect(() => {
     if (props.title === 'Sell') setExchangeCurrencyName('xUSD')
-  })
+  }, [props.title])
 
   const schema = Yup.object({
     amount: Yup.number().required().positive().moreThan(0),
@@ -217,7 +217,7 @@ export default function DialogBox(props) {
                       <MenuItem value={'Bitcoin'}>Bitcoin</MenuItem>
                       <MenuItem value={'Ethereum'}>Ethereum</MenuItem>
                       <MenuItem value={'Tether'}>Tether</MenuItem>
-                      <MenuItem value={'BNB'}>Tether</MenuItem>
+                      <MenuItem value={'BNB'}>BNB</MenuItem>
                     </Select>
                   </FormControl>
                 </div>
