@@ -85,7 +85,7 @@ export const DrawerBar = ({ notHome }) => {
                             <ListItemText primary='Transaction History' />
                         </ListItemButton>
                     </ListItem>
-                    <ListItem disablePadding>
+                    <ListItem disablePadding component={Link} to='/ratio' style={{ textDecoration: 'none', color: 'black' }}>
                         <ListItemButton>
                             <ListItemIcon>
                                 <TimelineIcon />
