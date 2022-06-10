@@ -6,6 +6,7 @@ import Register from './pages/Register/Register'
 import MainPage from './pages/Main/MainPage'
 import { Transaction } from 'pages/Transaction/Transaction'
 import Profile from './pages/Profile/Profile'
+import { Ratio } from 'pages/Ratio/Ratio'
 
 export default function App() {
 
@@ -19,6 +20,7 @@ export default function App() {
               <Route path='/main' element={<MainPage />} />
               <Route path='/transaction' element={<Transaction />} />
               <Route path='/profile' element={<Profile />} />
+              <Route path='/ratio' element={<Ratio />} />
             </>
             : null}
           <Route index element={<LoginPage />} />

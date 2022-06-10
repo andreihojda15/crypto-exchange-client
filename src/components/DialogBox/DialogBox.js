@@ -16,6 +16,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import AddIcon from '@mui/icons-material/Add'
 import Fab from '@mui/material/Fab'
+import constants from 'constants/constants'
 
 export default function DialogBox(props) {
   const [open, setOpen] = React.useState(false)
@@ -63,7 +64,7 @@ export default function DialogBox(props) {
           handleClose()
           console.log(error)
         })
-    else
+    else {
       axios
         .post(
           'http://localhost:1234/transaction',
@@ -84,6 +85,10 @@ export default function DialogBox(props) {
           handleClose()
           console.log(error)
         })
+      axios.post(`${constants.baseURL}/currency-history`, {
+        name: baseCurrencyName,
+      }, { withCredentials: true })
+    }
   }
 
   const handleClickOpen = () => {
@@ -107,16 +112,16 @@ export default function DialogBox(props) {
               gridColumn: 3,
               marginRight: 3,
               marginBottom: 3,
-            }}> 
-              <AddIcon className="addIcon"/>
+            }}>
+              <AddIcon className="addIcon" />
             </Fab>
           </div>
         ) :
-        <Button variant="contained" color={props.title === 'Buy' ? 'primary' : 'secondary'} onClick={handleClickOpen}>
-          {props.title}
-        </Button>
+          <Button variant="contained" color={props.title === 'Buy' ? 'primary' : 'secondary'} onClick={handleClickOpen}>
+            {props.title}
+          </Button>
       }
-      
+
       <Dialog
         open={open}
         onClose={handleClose}
