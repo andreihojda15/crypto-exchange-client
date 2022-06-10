@@ -6,9 +6,7 @@ import { DrawerBar } from '../../components/Drawer/DrawerBar'
 import { DataGridCrypto } from '../../components/DataGrid/DataGridCrypto'
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
-import { Button } from '@mui/material';
+import DialogBox from '../../components/DialogBox/DialogBox'
 
 const columnsBuy = [
     { field: '_id', hide: true },
@@ -49,7 +47,7 @@ const actionColumnBuy = [
         width: 120,
         renderCell: (params) => {
             return (
-                <Button variant='contained'>Buy</Button>
+                <DialogBox title='Buy' />
             );
         },
     },
@@ -62,7 +60,7 @@ const actionColumnSell = [
         width: 120,
         renderCell: (params) => {
             return (
-                <Button variant='contained' color='secondary'>Sell</Button>
+                <DialogBox title='Sell' />
             );
         },
     },
@@ -83,6 +81,7 @@ const MainPage = () => {
             }}>
                 <Paper
                     elevation={8}
+                    className="paper"
                     sx={{
                         display: 'grid',
                         gridTemplateColumns: '1fr 4fr',
@@ -112,14 +111,8 @@ const MainPage = () => {
                         <Tab value="two" label="Sell" onClick={() => setBuy(false)} />
                     </Tabs>
                     {buy ? <DataGridCrypto columns={columnsBuy} actionColumn={actionColumnBuy} url={'crypto'} /> : <DataGridCrypto columns={columnsSell} actionColumn={actionColumnSell} url={'crypto-sell'} />}
-                    <Fab color="primary" aria-label="add" sx={{
-                        gridArea: 'fab',
-                        gridColumn: 3,
-                        marginRight: 3,
-                        marginBottom: 3,
-                    }}>
-                        <AddIcon />
-                    </Fab>
+                    
+                    <DialogBox title='Deposit Funds' />
                 </Paper>
             </Box>
         </>

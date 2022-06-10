@@ -3,3 +3,11 @@
     justify-content: center;
     align-items: center;
 }
+.paper {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+}
+.MuiPaper-root{
+    width: 90%;
+}
