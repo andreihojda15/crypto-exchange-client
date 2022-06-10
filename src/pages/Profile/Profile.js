@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import './profile.css'
-import { DrawerBar } from '../../components/DrawerBar'
+import { DrawerBar } from '../../components/Drawer/DrawerBar'
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Textfield from '@mui/material/TextField'
@@ -98,15 +98,15 @@ const Profile = () => {
 
     return (
             <Box className='container' sx={{
-                marginTop: 15,
+                marginTop: 10,
             }}>
                 <ToastContainer/>
                 <Paper
                     elevation={8}
                     sx={{
                         display: 'grid',
-                        gridTemplateColumns: '300px 800px',
-                        gridTemplateRows: '50px 600px',
+                        gridTemplateColumns: '300px 1000px',
+                        gridTemplateRows: '50px 700px',
                         gridTemplateAreas: `'drawer tabs'
                                             'drawer datagrid'`,
                     }}
