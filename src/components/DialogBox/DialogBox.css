@@ -26,3 +26,8 @@ hr {
   display:flex;
   justify-content: flex-end;
 }
+.MuiPopover-paper{
+  display: flex;
+  justify-content: center;
+  width: 6%;
+}
