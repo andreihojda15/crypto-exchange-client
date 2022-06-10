@@ -70,7 +70,9 @@ export const DrawerBar = () => {
                             <ListItemIcon>
                                 <MovingIcon />
                             </ListItemIcon>
-                            <ListItemText primary='Transaction History' />
+                            <Link to='/transaction' style={{textDecoration: 'none', color: 'black'}}>
+                                <ListItemText primary='Transaction History' />
+                            </Link>
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>

@@ -8,6 +8,65 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
+import { Button } from '@mui/material';
+
+const columnsBuy = [
+    { field: '_id', hide: true },
+    { field: 'name', headerName: 'Name', width: 200 },
+    {
+        field: 'ratio',
+        headerName: 'Price',
+        width: 180,
+    },
+    {
+        field: 'exchangeAmount',
+        headerName: 'Available In Exchange',
+        width: 250,
+    },
+];
+
+const columnsSell = [
+    { field: '_id', hide: true },
+    { field: 'name', headerName: 'Name', width: 200 },
+    {
+        field: 'price',
+        headerName: 'Price',
+        width: 180,
+    },
+    {
+        field: 'amount',
+        headerName: 'Available in Wallet',
+        width: 250,
+    },
+];
+
+
+
+const actionColumnBuy = [
+    {
+        field: "action",
+        headerName: "Action",
+        width: 120,
+        renderCell: (params) => {
+            return (
+                <Button variant='contained'>Buy</Button>
+            );
+        },
+    },
+];
+
+const actionColumnSell = [
+    {
+        field: "action",
+        headerName: "Action",
+        width: 120,
+        renderCell: (params) => {
+            return (
+                <Button variant='contained' color='secondary'>Sell</Button>
+            );
+        },
+    },
+];
 
 const MainPage = () => {
     const [value, setValue] = useState('one');
@@ -52,7 +111,7 @@ const MainPage = () => {
                         <Tab value="one" label="Buy" onClick={() => setBuy(true)} />
                         <Tab value="two" label="Sell" onClick={() => setBuy(false)} />
                     </Tabs>
-                    {buy ? <DataGridCrypto isBuy={buy} url={'crypto'} /> : <DataGridCrypto isBuy={buy} url={'crypto-sell'} />}
+                    {buy ? <DataGridCrypto columns={columnsBuy} actionColumn={actionColumnBuy} url={'crypto'} /> : <DataGridCrypto columns={columnsSell} actionColumn={actionColumnSell} url={'crypto-sell'} />}
                     <Fab color="primary" aria-label="add" sx={{
                         gridArea: 'fab',
                         gridColumn: 3,

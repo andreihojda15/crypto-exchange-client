@@ -7,7 +7,6 @@ import {
     useGridSelector,
 } from '@mui/x-data-grid';
 import Pagination from '@mui/material/Pagination';
-import { Button } from '@mui/material';
 import axios from 'axios';
 import constants from '../../constants/constants'
 
@@ -26,42 +25,23 @@ function CustomPagination() {
     );
 }
 
-export const DataGridCrypto = ({ url }) => {
-    const columns = [
-        { field: '_id', hide: true },
-        { field: 'name', headerName: 'Name', width: 200 },
-        {
-            field: url === 'crypto' ? 'ratio' : 'price',
-            headerName: 'Price',
-            width: 180,
-        },
-        {
-            field: url === 'crypto' ? 'exchangeAmount' : 'amount',
-            headerName: url === 'crypto' ? 'Available In Exchange' : 'Available in Wallet',
-            width: 250,
-        },
-    ];
-
-    const actionColumn = [
-        {
-            field: "action",
-            headerName: "Action",
-            width: 120,
-            renderCell: (params) => {
-                return (
-                    url === 'crypto' ? <Button variant='contained'>Buy</Button> : <Button variant='contained' color='secondary'>Sell</Button>
-                );
-            },
-        },
-    ];
-
+export const DataGridCrypto = ({ columns, actionColumn, url }) => {
     const [tableBuy, setTableBuy] = useState([])
     const [tableSell, setTableSell] = useState([])
+    const [tableTransaction, setTableTransaction] = useState([])
 
     useEffect(() => {
         axios.get(`${constants.baseURL}/${url}`, { withCredentials: true })
             .then((res) => {
-                url === 'crypto' ? setTableBuy(res.data.toBuy) : setTableSell(res.data.toSell)
+                if (url === 'crypto') {
+                    setTableBuy(res.data.toBuy)
+                }
+                if (url === 'crypto-sell') {
+                    setTableSell(res.data.toSell)
+                }
+                if (url === 'transaction-history') {
+                    setTableTransaction(res.data.response)
+                }
             }).catch((err) => {
                 console.log(err);
             })
@@ -70,8 +50,8 @@ export const DataGridCrypto = ({ url }) => {
     return (
         <>
             <DataGrid
-                rows={url === 'crypto' ? tableBuy : tableSell}
-                columns={columns.concat(actionColumn)}
+                rows={url === 'crypto' ? tableBuy : (url === 'crypto-sell') ? tableSell : tableTransaction}
+                columns={url === 'transaction-history' ? columns : columns.concat(actionColumn)}
                 pagination
                 getRowId={(row) => row._id}
                 pageSize={5}
