@@ -9,8 +9,9 @@ import { Box } from '@mui/system';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import constants from 'constants/constants';
+import HomeIcon from '@mui/icons-material/Home';
 
-export const DrawerBar = () => {
+export const DrawerBar = ({ notHome }) => {
     const logout = () => {
         localStorage.clear()
         axios.get(`${constants.baseURL}/logout`, { withCredentials: true })
@@ -65,14 +66,23 @@ export const DrawerBar = () => {
                 <List sx={{
                     gridArea: 'list',
                 }}>
-                    <ListItem disablePadding>
+                    {notHome ?
+                        <ListItem disablePadding component={Link} to='/main' style={{ textDecoration: 'none', color: 'black' }}>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <HomeIcon />
+                                </ListItemIcon>
+                                <ListItemText primary='Home' />
+                            </ListItemButton>
+                        </ListItem>
+                        : null
+                    }
+                    <ListItem disablePadding component={Link} to='/transaction' style={{ textDecoration: 'none', color: 'black' }}>
                         <ListItemButton>
                             <ListItemIcon>
                                 <MovingIcon />
                             </ListItemIcon>
-                            <Link to='/transaction' style={{ textDecoration: 'none', color: 'black' }}>
-                                <ListItemText primary='Transaction History' />
-                            </Link>
+                            <ListItemText primary='Transaction History' />
                         </ListItemButton>
                     </ListItem>
                     <ListItem disablePadding>
@@ -83,14 +93,12 @@ export const DrawerBar = () => {
                             <ListItemText primary='Currency ratio history' />
                         </ListItemButton>
                     </ListItem>
-                    <ListItem disablePadding>
+                    <ListItem disablePadding component={Link} to='/profile' style={{ textDecoration: 'none', color: 'black' }}>
                         <ListItemButton>
                             <ListItemIcon>
                                 <AccountBoxIcon />
                             </ListItemIcon>
-                            <Link to='/profile' style={{ textDecoration: 'none', color: 'black' }}>
-                                <ListItemText primary='Profile' />
-                            </Link>
+                            <ListItemText primary='Profile' />
                         </ListItemButton>
                     </ListItem>
                 </List>
@@ -104,10 +112,9 @@ export const DrawerBar = () => {
                         gridArea: 'logout',
                         marginTop: 18,
                     }}
+                    href='/'
                 >
-                    <Link to='/' style={{ textDecoration: 'none', color: 'white' }}>
-                        Log out
-                    </Link>
+                    Log out
                 </Button>
             </Box>
         </Drawer >

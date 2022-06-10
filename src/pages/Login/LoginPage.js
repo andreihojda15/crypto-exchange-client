@@ -118,7 +118,7 @@ const LoginPage = () => {
                                         <CloseIcon fontSize="inherit" />
                                     </IconButton>
                                 }
-                                sx={{ mb: 2 }}
+                                sx={{ mb: 2, width: '100%', }}
                             >
                                 Login failed!
                             </Alert>
