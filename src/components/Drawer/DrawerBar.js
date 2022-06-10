@@ -70,7 +70,7 @@ export const DrawerBar = () => {
                             <ListItemIcon>
                                 <MovingIcon />
                             </ListItemIcon>
-                            <Link to='/transaction' style={{textDecoration: 'none', color: 'black'}}>
+                            <Link to='/transaction' style={{ textDecoration: 'none', color: 'black' }}>
                                 <ListItemText primary='Transaction History' />
                             </Link>
                         </ListItemButton>
@@ -88,7 +88,9 @@ export const DrawerBar = () => {
                             <ListItemIcon>
                                 <AccountBoxIcon />
                             </ListItemIcon>
-                            <ListItemText primary='Profile' />
+                            <Link to='/profile' style={{ textDecoration: 'none', color: 'black' }}>
+                                <ListItemText primary='Profile' />
+                            </Link>
                         </ListItemButton>
                     </ListItem>
                 </List>
