@@ -10,31 +10,31 @@ import DialogBox from '../../components/DialogBox/DialogBox'
 
 const columnsBuy = [
     { field: '_id', hide: true },
-    { field: 'name', headerName: 'Name', width: 200 },
+    { field: 'name', headerName: 'Name', width: 300 },
     {
         field: 'ratio',
         headerName: 'Price',
-        width: 180,
+        width: 300,
     },
     {
         field: 'exchangeAmount',
         headerName: 'Available In Exchange',
-        width: 250,
+        width: 550,
     },
 ];
 
 const columnsSell = [
     { field: '_id', hide: true },
-    { field: 'name', headerName: 'Name', width: 200 },
+    { field: 'name', headerName: 'Name', width: 300 },
     {
         field: 'price',
         headerName: 'Price',
-        width: 180,
+        width: 300,
     },
     {
         field: 'amount',
         headerName: 'Available in Wallet',
-        width: 250,
+        width: 550,
     },
 ];
 
@@ -92,7 +92,7 @@ const MainPage = () => {
                         justifyContent: 'center',
                     }}
                 >
-                    <DrawerBar />
+                    <DrawerBar notHome={false} />
                     <Tabs
                         value={value}
                         onChange={handleChange}
@@ -111,7 +111,7 @@ const MainPage = () => {
                         <Tab value="two" label="Sell" onClick={() => setBuy(false)} />
                     </Tabs>
                     {buy ? <DataGridCrypto columns={columnsBuy} actionColumn={actionColumnBuy} url={'crypto'} /> : <DataGridCrypto columns={columnsSell} actionColumn={actionColumnSell} url={'crypto-sell'} />}
-                    
+
                     <DialogBox title='Deposit Funds' />
                 </Paper>
             </Box>

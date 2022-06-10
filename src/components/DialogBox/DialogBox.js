@@ -112,7 +112,7 @@ export default function DialogBox(props) {
             </Fab>
           </div>
         ) :
-        <Button variant="outlined" onClick={handleClickOpen}>
+        <Button variant="contained" color={props.title === 'Buy' ? 'primary' : 'secondary'} onClick={handleClickOpen}>
           {props.title}
         </Button>
       }
@@ -161,6 +161,8 @@ export default function DialogBox(props) {
                       <MenuItem value={'Tether'}>Tether</MenuItem>
                       <MenuItem value={'Bitcoin'}>Bitcoin</MenuItem>
                       <MenuItem value={'BNB'}>BNB</MenuItem>
+                      <MenuItem value={'USD Coin'}>USD Coin</MenuItem>
+                      <MenuItem value={'XRP'}>XRP</MenuItem>
                     </Select>
                   </FormControl>
                 </div>
@@ -198,6 +200,8 @@ export default function DialogBox(props) {
                       <MenuItem value={'Tether'}>Tether</MenuItem>
                       <MenuItem value={'Bitcoin'}>Bitcoin</MenuItem>
                       <MenuItem value={'BNB'}>BNB</MenuItem>
+                      <MenuItem value={'USD Coin'}>USD Coin</MenuItem>
+                      <MenuItem value={'XRP'}>XRP</MenuItem>
                     </Select>
                   </FormControl>
                 </div>
@@ -237,6 +241,8 @@ export default function DialogBox(props) {
                       <MenuItem value={'Ethereum'}>Ethereum</MenuItem>
                       <MenuItem value={'Tether'}>Tether</MenuItem>
                       <MenuItem value={'BNB'}>BNB</MenuItem>
+                      <MenuItem value={'USD Coin'}>USD Coin</MenuItem>
+                      <MenuItem value={'XRP'}>XRP</MenuItem>
                     </Select>
                   </FormControl>
                 </div>

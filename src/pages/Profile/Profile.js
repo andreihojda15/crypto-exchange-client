@@ -105,7 +105,7 @@ const Profile = () => {
                     elevation={8}
                     sx={{
                         display: 'grid',
-                        gridTemplateColumns: '300px 1000px',
+                        gridTemplateColumns: '1fr 4fr',
                         gridTemplateRows: '50px 700px',
                         gridTemplateAreas: `'drawer tabs'
                                             'drawer datagrid'`,
@@ -113,9 +113,8 @@ const Profile = () => {
                 >
                     <Box sx={{
                         gridArea: 'drawer',
-                        marginTop: 3,
                     }}>
-                        <DrawerBar />
+                        <DrawerBar notHome={true} />
                     </Box>
                     <Tabs
                         value={page}

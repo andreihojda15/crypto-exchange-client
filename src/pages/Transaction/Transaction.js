@@ -49,7 +49,7 @@ export const Transaction = () => {
                     paddingBottom: 3,
                 }}
             >
-                <DrawerBar />
+                <DrawerBar notHome={true} />
                 <DataGridCrypto columns={columnsTransaction} url={'transaction-history'} />
             </Paper>
         </Box>
