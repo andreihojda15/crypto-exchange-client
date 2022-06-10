@@ -40,14 +40,12 @@ export const DataGridCrypto = ({ columns, actionColumn, url }) => {
                     setTableSell(res.data.toSell)
                 }
                 if (url === 'transaction-history') {
-                    console.log(res.data);
                     setTableTransaction(res.data.response)
                 }
             }).catch((err) => {
                 console.log(err);
             })
     }, [url])
-    console.log(tableTransaction);
 
     return (
         <>
