@@ -9,9 +9,6 @@ hr {
   margin: 0;
   padding: 0;
 }
-.MuiPaper-root {
-  width: 40%;
-}
 .container {
   display: flex;
 }
@@ -21,4 +18,11 @@ hr {
 }
 .amountBox {
   width: 70%;
+}
+.addIcon{
+  color: 'white';
+}
+.fab{
+  display:flex;
+  justify-content: flex-end;
 }

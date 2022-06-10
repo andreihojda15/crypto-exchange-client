@@ -14,6 +14,8 @@ import * as Yup from 'yup'
 import axios from 'axios'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import AddIcon from '@mui/icons-material/Add'
+import Fab from '@mui/material/Fab'
 
 export default function DialogBox(props) {
   const [open, setOpen] = React.useState(false)
@@ -58,6 +60,7 @@ export default function DialogBox(props) {
         })
         .catch(error => {
           toast.error(error.response.data.message)
+          handleClose()
           console.log(error)
         })
     else
@@ -78,6 +81,7 @@ export default function DialogBox(props) {
         })
         .catch(error => {
           toast.error(error.response.data.message)
+          handleClose()
           console.log(error)
         })
   }
@@ -95,9 +99,24 @@ export default function DialogBox(props) {
   return (
     <div className="dialog">
       <ToastContainer />
-      <Button variant="outlined" onClick={handleClickOpen}>
-        {props.title}
-      </Button>
+      {
+        props.title === 'Deposit Funds' ? (
+          <div className='fab'>
+            <Fab color="primary" aria-label="add" onClick={handleClickOpen} sx={{
+              gridArea: 'fab',
+              gridColumn: 3,
+              marginRight: 3,
+              marginBottom: 3,
+            }}> 
+              <AddIcon className="addIcon"/>
+            </Fab>
+          </div>
+        ) :
+        <Button variant="outlined" onClick={handleClickOpen}>
+          {props.title}
+        </Button>
+      }
+      
       <Dialog
         open={open}
         onClose={handleClose}

@@ -3,7 +3,7 @@ import LoginPage from './pages/Login/LoginPage'
 import Navbar from './components/Navbar/Navbar'
 import { Route, Routes } from 'react-router-dom'
 import Register from './pages/Register/Register'
-import MainPage from 'pages/Main/MainPage'
+import MainPage from './pages/Main/MainPage'
 import { Transaction } from 'pages/Transaction/Transaction'
 import Profile from './pages/Profile/Profile'
 
