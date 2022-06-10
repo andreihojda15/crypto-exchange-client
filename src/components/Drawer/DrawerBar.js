@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { Button, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import image1 from '../../imgs/image1.png'
@@ -12,6 +12,21 @@ import constants from 'constants/constants';
 import HomeIcon from '@mui/icons-material/Home';
 
 export const DrawerBar = ({ notHome }) => {
+
+    const [image, setImage] = useState(null)
+
+    useEffect(() => {
+        axios.get('http://localhost:1234/profile/avatar', { withCredentials: true, 
+        headers: {
+            'Content-Type': 'image/jpeg'
+        },
+        responseType: 'blob'
+    })
+        .then(response =>{
+            setImage(URL.createObjectURL(response.data))
+        })
+    })
+
     const logout = () => {
         localStorage.clear()
         axios.get(`${constants.baseURL}/logout`, { withCredentials: true })
@@ -45,7 +60,7 @@ export const DrawerBar = ({ notHome }) => {
             }}>
                 <Avatar
                     alt='user profile picture'
-                    src={image1}
+                    src={image}
                     sx={{
                         marginTop: 2,
                         width: 100,

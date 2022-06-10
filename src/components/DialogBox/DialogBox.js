@@ -147,6 +147,7 @@ export default function DialogBox(props) {
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Currency</InputLabel>
                     <Select
+                      className='select'
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
                       name="baseCurrencyName"
